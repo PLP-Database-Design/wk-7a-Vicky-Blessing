@@ -1,47 +1,44 @@
 -- QUESTION 1
-
--- CREATING THE ORDERS TABLE
-CREATE TABLE Orders (
-    OrderID INT PRIMARY KEY,
-    CustomerName VARCHAR(100) NOT NULL
+CREATE TABLE ProductDetail (
+    OrderID INT,
+    CustomerName VARCHAR(100),
+    Products VARCHAR(100)
 );
-
--- CREATING THE ORDERPRODUCTS TABLE
-CREATE TABLE OrderProducts (
-    OrderProductID INT AUTO_INCREMENT PRIMARY KEY,
-    OrderID INT NOT NULL,
-    Product VARCHAR(100) NOT NULL,
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
-);
+INSERT INTO ProductDetail(OrderID, CustomerName, Products)
+VALUES
+(101, 'John Doe', 'Laptop'),
+(101, 'John Doe', 'Mouse'),
+(102, 'Jane Smith', 'Tablet'),
+(102, 'Jane Smith', 'Keyboard'),
+(102, 'Jane Smith', 'Mouse'),
+(103, 'Emily Clark', 'Phone');
 
 
 -- QUESTION 2
 
--- CUSTOMERS TABLE
-CREATE TABLE Customers (
-    CustomerID INT AUTO_INCREMENT PRIMARY KEY,
-    CustomerName VARCHAR(100) NOT NULL
-);
-
---ORDERS TABLE
 CREATE TABLE Orders (
     OrderID INT PRIMARY KEY,
-    CustomerID INT NOT NULL,
-    FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+    CustomerName VARCHAR(100)
 );
+INSERT INTO Orders (OrderID, CustomerName)
+VALUES
+(101, 'John Doe'),
+(102, 'Jane Smith'),
+(103, 'Emily Clark');
 
--- PRODUCTS TABLE
-CREATE TABLE Products (
-    ProductID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductName VARCHAR(100) NOT NULL
-);
 
--- ORDER ITEMS TABLES
-CREATE TABLE OrderItems (
-    OrderID INT NOT NULL,
-    ProductID INT NOT NULL,
-    Quantity INT NOT NULL,
-    PRIMARY KEY (OrderID, ProductID),
-    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID),
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID)
+CREATE TABLE Product (
+    OrderID INT,
+    Product VARCHAR(100),
+    Quantity INT,
+    PRIMARY KEY (OrderID, Product),
+    FOREIGN KEY (OrderID) REFERENCES Orders(OrderID)
 );
+INSERT INTO Product (OrderID, Product, Quantity)
+VALUES
+(101, 'Laptop', 2),
+(101, 'Mouse', 1),
+(102, 'Tablet', 3),
+(102, 'Keyboard', 1),
+(102, 'Mouse', 2),
+(103, 'Phone', 1);
